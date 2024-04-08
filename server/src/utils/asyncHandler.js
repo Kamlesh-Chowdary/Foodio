@@ -1,4 +1,4 @@
-export default asynchandler = (execute_me) => {
+export const asyncHandler = (execute_me) => {
   return (req, res, next) => {
     Promise.resolve(execute_me(req, res, next)).catch((error) => {
       const statusCode = error.statusCode || 500;
