@@ -1,14 +1,16 @@
-import mysql from "mysql";
-import dotenv from "dotenv";
-dotenv.config({
-  path: "./.env",
-});
+import mongoose from "mongoose";
 
-const pool = mysql.createPool({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-});
+const connectDB = async () => {
+  try {
+    const connectionInstance = await mongoose.connect(process.env.MONGODB_URI);
+    console.log(
+      "MONGODB connection established! DB Host :",
+      connectionInstance.connection.host
+    );
+  } catch (error) {
+    console.log("MongoDB Connection failed:", error);
+    process.exit(1);
+  }
+};
 
-export { pool };
+export default connectDB;
