@@ -43,18 +43,18 @@ const customerSchema = new mongoose.Schema(
   }
 );
 
-customerSchema.pre("save", async (next) => {
-  if (!this.modified(password)) return next();
+customerSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
-customerSchema.methods.isPasswordCorrect = async (password) => {
+customerSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-customerSchema.methods.generateToken = () => {
+customerSchema.methods.generateToken = function () {
   return jwt.sign(
     {
       _id: this._id,
