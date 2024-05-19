@@ -1,8 +1,9 @@
-export const asyncHandler = (execute_me) => {
+const asyncHandler = (requestHandler) => {
   return (req, res, next) => {
-    Promise.resolve(execute_me(req, res, next)).catch((error) => {
+    Promise.resolve(requestHandler(req, res, next)).catch((error) => {
       const statusCode = error.statusCode || 500;
       const message = error.message || "Internal Server Error";
+
       res.status(statusCode).json({
         success: false,
         message: message,
@@ -10,3 +11,5 @@ export const asyncHandler = (execute_me) => {
     });
   };
 };
+
+export { asyncHandler };
