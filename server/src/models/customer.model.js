@@ -32,6 +32,9 @@ const customerSchema = new mongoose.Schema(
         },
       },
     },
+    token: {
+      type: String,
+    },
 
     customer_details: {
       type: mongoose.Schema.Types.ObjectId,
