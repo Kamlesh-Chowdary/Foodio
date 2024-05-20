@@ -91,4 +91,27 @@ const loginCustomer = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerCustomer, loginCustomer };
+const logoutCustomer = asyncHandler(async (req, res) => {
+  await Customer.findByIdAndUpdate(
+    req.customer._id,
+    {
+      $unset: { token: 1 },
+    },
+    {
+      new: true,
+    }
+  );
+
+  const options = {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+  };
+
+  res
+    .status(200)
+    .clearCookie("token", options)
+    .json(new ApiResponse(201, {}, "Customer logged out successfully"));
+});
+
+export { registerCustomer, loginCustomer, logoutCustomer };
