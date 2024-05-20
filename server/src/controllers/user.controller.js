@@ -29,7 +29,7 @@ const registerCustomer = asyncHandler(async (req, res) => {
   });
 
   const createdCustomer = await Customer.findById(customer._id).select(
-    "-password -customer_details"
+    "-password -__v"
   );
 
   if (!createdCustomer) {
@@ -43,4 +43,52 @@ const registerCustomer = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerCustomer };
+const loginCustomer = asyncHandler(async (req, res) => {
+  //get the email and password
+  //verify if its not empty
+  //validate email and password
+  //generate token
+  //return token in response
+
+  const { email, password } = req.body;
+
+  if (!email) {
+    throw new ApiError(400, "email is required");
+  }
+
+  const customer = await Customer.findOne({ email });
+
+  if (!customer) {
+    throw new ApiError(404, "Customer with this email doesn't exist");
+  }
+  const isPasswordCorrect = await customer.isPasswordCorrect(password);
+
+  if (!isPasswordCorrect) {
+    throw new ApiError(401, "Invalid user credentials");
+  }
+
+  const token = await customer.generateToken();
+
+  const loggedInCustomer = await Customer.findByIdAndUpdate(customer._id, {
+    token,
+  }).select("-password -token -__v");
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+    sameSite: true,
+  };
+
+  res
+    .status(200)
+    .cookie("token", token, options)
+    .json(
+      new ApiResponse(
+        201,
+        { customer: loggedInCustomer, token },
+        "Customer logged in successfully"
+      )
+    );
+});
+
+export { registerCustomer, loginCustomer };
