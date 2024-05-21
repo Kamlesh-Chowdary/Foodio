@@ -114,4 +114,47 @@ const logoutCustomer = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, {}, "Customer logged out successfully"));
 });
 
-export { registerCustomer, loginCustomer, logoutCustomer };
+const getCustomerDetails = asyncHandler(async (req, res) => {
+  const customerDetails = await Customer.aggregate([
+    {
+      $match: {
+        _id: req.customer?._id,
+      },
+    },
+    {
+      $lookup: {
+        from: "customerdetails",
+        localField: "_id",
+        foreignField: "customer_id",
+        as: "customer_details",
+        pipeline: [
+          {
+            $project: {
+              message: 0,
+              __v: 0,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        password: 0,
+        token: 0,
+        __v: 0,
+      },
+    },
+  ]);
+  console.log(customerDetails);
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        201,
+        customerDetails,
+        "Customer Details fetched successfully"
+      )
+    );
+});
+
+export { registerCustomer, loginCustomer, logoutCustomer, getCustomerDetails };
