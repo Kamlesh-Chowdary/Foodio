@@ -33,6 +33,7 @@ const customerDetails = asyncHandler(async (req, res) => {
       address,
       phonenumber,
       message,
+      customer_id: req.customer._id,
     });
 
     const registeredCustomerDetails = await CustomerDetail.findById(
