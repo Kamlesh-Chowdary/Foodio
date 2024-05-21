@@ -5,19 +5,16 @@ const customerDetailSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    lowercase: true,
   },
   lastName: {
     type: String,
     required: true,
     trim: true,
-    lowercase: true,
   },
   address: {
     type: String,
     required: true,
     trim: true,
-    lowercase: true,
   },
   phonenumber: {
     type: Number,
