@@ -78,4 +78,33 @@ const modifyReservation = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, updateReservation, "Successfully Modified"));
 });
 
-export { addReservation, modifyReservation };
+const cancelReservation = asyncHandler(async (req, res) => {
+  const { reservationId } = req.params;
+
+  if (!reservationId) throw new ApiError(404, "Reservation Id is required");
+
+  const cancelReservation = await Reservation.findByIdAndUpdate(
+    {
+      _id: reservationId,
+    },
+    {
+      reservationStatus: false,
+    },
+    { new: true }
+  );
+  if (!cancelReservation) {
+    throw new ApiError(404, "Error while canceling the reservation");
+  }
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        cancelReservation,
+        "Reservation Canceled successfully."
+      )
+    );
+});
+
+export { addReservation, modifyReservation, cancelReservation };
