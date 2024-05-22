@@ -8,7 +8,7 @@ const reservationSchema = new mongoose.Schema(
       ref: "customerdetails",
     },
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
     time: {
@@ -16,18 +16,21 @@ const reservationSchema = new mongoose.Schema(
       required: true,
     },
     members: {
-      type: Number,
+      type: String,
       required: true,
     },
     occation: {
       type: String,
       required: true,
     },
-    reservationStatus: Boolean,
+    reservationStatus: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-export { reservationSchema };
+export const Reservation = mongoose.model("reservation", reservationSchema);
