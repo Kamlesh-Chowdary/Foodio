@@ -126,4 +126,30 @@ const getReservation = asyncHandler(async (req, res) => {
     );
 });
 
-export { addReservation, modifyReservation, cancelReservation, getReservation };
+const getsingleReservation = asyncHandler(async (req, res) => {
+  const { reservation_id } = req.params;
+
+  if (!reservation_id) throw new ApiError(404, "Reservation id is required");
+
+  const singleReservation = await Reservation.findById(reservation_id);
+
+  if (!singleReservation) throw new ApiError(404, "Invalid reservation id");
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        singleReservation,
+        "Single reservation fetched successfully."
+      )
+    );
+});
+
+export {
+  addReservation,
+  modifyReservation,
+  cancelReservation,
+  getReservation,
+  getsingleReservation,
+};
