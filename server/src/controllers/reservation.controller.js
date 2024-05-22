@@ -107,4 +107,23 @@ const cancelReservation = asyncHandler(async (req, res) => {
     );
 });
 
-export { addReservation, modifyReservation, cancelReservation };
+const getReservation = asyncHandler(async (req, res) => {
+  const { customer_id } = req.params;
+  if (!customer_id) throw new ApiError(404, "Customer Id is required");
+
+  const reservations = await Reservation.find({ customer_id });
+  if (!reservations) {
+    throw new ApiError(404, "No Tables are reserved by this customer.");
+  }
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        201,
+        "All the reservations have been fetched  successfully"
+      )
+    );
+});
+
+export { addReservation, modifyReservation, cancelReservation, getReservation };
