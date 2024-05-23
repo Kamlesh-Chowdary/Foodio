@@ -101,4 +101,20 @@ const getMenuList = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, menuList, "Menu fetched successfully"));
 });
 
-export { addDish, editDish, removeDish, getMenuList };
+const getSingleDish = asyncHandler(async (req, res) => {
+  const { dishId } = req.params;
+  if (!dishId) throw new ApiError(404, "Dish Id is required");
+
+  const singleDish = await Menu.findById(dishId).select("-__v");
+
+  if (!singleDish)
+    throw new ApiError(404, "Error while fetching the dish item");
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, singleDish, "Dish details fetched successfully")
+    );
+});
+
+export { addDish, editDish, removeDish, getMenuList, getSingleDish };
