@@ -3,6 +3,7 @@ import verifyUser from "../middlewares/auth.middleware.js";
 import {
   addReservation,
   cancelReservation,
+  getReservation,
   modifyReservation,
 } from "../controllers/reservation.controller.js";
 
@@ -15,5 +16,5 @@ reservationRouter
 reservationRouter
   .route("/cancel-reservation/:reservationId")
   .get(verifyUser, cancelReservation);
-
+reservationRouter.route("/all-reservations").get(verifyUser, getReservation);
 export default reservationRouter;

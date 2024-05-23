@@ -108,10 +108,7 @@ const cancelReservation = asyncHandler(async (req, res) => {
 });
 
 const getReservation = asyncHandler(async (req, res) => {
-  const { customer_id } = req.params;
-  if (!customer_id) throw new ApiError(404, "Customer Id is required");
-
-  const reservations = await Reservation.find({ customer_id });
+  const reservations = await Reservation.find({});
   if (!reservations) {
     throw new ApiError(404, "No Tables are reserved by this customer.");
   }
@@ -121,6 +118,7 @@ const getReservation = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         201,
+        reservations,
         "All the reservations have been fetched  successfully"
       )
     );
