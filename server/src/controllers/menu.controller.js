@@ -77,4 +77,19 @@ const editDish = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, updateDish, "Successfully Modified"));
 });
 
-export { addDish, editDish };
+const removeDish = asyncHandler(async (req, res) => {
+  const { dishId } = req.params;
+
+  if (!dishId) throw new ApiError(404, "Dish Id is required");
+
+  const removeDishItem = await Menu.findByIdAndDelete({ _id: dishId });
+  if (!removeDishItem) {
+    throw new ApiError(404, "Error while Removing the Dish ");
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, removeDishItem, "Dish removed successfully."));
+});
+
+export { addDish, editDish, removeDish };
