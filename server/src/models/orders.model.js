@@ -46,12 +46,15 @@ orderSchema.pre("save", async function (next) {
   });
 
   order.totalPrice = order.items.reduce((total, item) => {
-    const dish = dishes.find((d) => d._id === item.dishId);
+    const dish = dishes.find((d) => d._id.equals(item.dishId));
+    console.log(dish);
     if (dish) {
       total += dish.price * item.quantity;
     }
+    console.log(total);
     return total;
   }, 0);
+  next();
 });
 
 export const Order = mongoose.model("Order", orderSchema);
