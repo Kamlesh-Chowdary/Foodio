@@ -92,4 +92,13 @@ const removeDish = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, removeDishItem, "Dish removed successfully."));
 });
 
-export { addDish, editDish, removeDish };
+const getMenuList = asyncHandler(async (req, res) => {
+  const menuList = await Menu.find({}).select("-__v");
+  if (!menuList) throw new ApiError(404, "Error while fetching whole menu");
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, menuList, "Menu fetched successfully"));
+});
+
+export { addDish, editDish, removeDish, getMenuList };
