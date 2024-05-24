@@ -3,7 +3,7 @@ import ApiError from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Order } from "../models/orders.model.js";
 import { CustomerDetail } from "../models/customer_detail.model.js";
-import { ObjectId, mongoose } from "mongoose";
+import mongoose from "mongoose";
 const createOrder = asyncHandler(async (req, res) => {
   const { items, message, paymentMethod, customerId } = req.body;
 
@@ -32,6 +32,40 @@ const createOrder = asyncHandler(async (req, res) => {
   res
     .status(200)
     .json(new ApiResponse(200, placedOrder, "Order Placed Successfully"));
+});
+const editOrder = asyncHandler(async (req, res) => {
+  const { orderId } = req.params;
+  const { items, message, paymentMethod } = req.body;
+
+  if (!Array.isArray(items) || items.length === 0) {
+    throw new ApiError(409, "All fields are required");
+  }
+
+  if (items.some((item) => item.quantity === 0)) {
+    throw new ApiError(409, "Quantity for each item must be greater than 0");
+  }
+
+  if (paymentMethod.trim() === "") {
+    throw new ApiError(409, "All fields are required");
+  }
+
+  const updateOrder = await Order.findByIdAndUpdate(
+    { _id: orderId },
+    {
+      items,
+      message,
+      paymentMethod,
+    },
+    {
+      new: true,
+    }
+  ).select("-__v ");
+
+  if (!updateOrder) throw new ApiError(404, "Error while updating the order");
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, updateOrder, "Order updated Successfully"));
 });
 
 const getOrders = asyncHandler(async (req, res) => {
@@ -180,4 +214,4 @@ const getSingleOrder = asyncHandler(async (req, res) => {
     );
 });
 
-export { createOrder, getOrders, getSingleOrder };
+export { createOrder, getOrders, getSingleOrder, editOrder };
