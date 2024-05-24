@@ -102,4 +102,82 @@ const getOrders = asyncHandler(async (req, res) => {
   res.status(200).json(200, orders, "All orders fetched successfully");
 });
 
-export { createOrder, getOrders };
+const getSingleOrder = asyncHandler(async (req, res) => {
+  const { orderId } = req.params;
+  if (!orderId) throw new ApiError(409, "Order id is required");
+  const userId = req.customer._id;
+  if (!userId) throw new ApiError(404, " Unauthorized Request");
+
+  const customerDetails = await CustomerDetail.find({
+    customer_id: userId,
+  }).select("-__v");
+
+  const customerDetailsIds = customerDetails.map((details) => details._id);
+
+  const singleOrder = await Order.aggregate([
+    {
+      $match: {
+        customerId: {
+          $in: customerDetailsIds,
+        },
+      },
+    },
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(orderId),
+      },
+    },
+    {
+      $lookup: {
+        from: "customerdetails",
+        localField: "customerId",
+        foreignField: "_id",
+        as: "customerDetails",
+        pipeline: [
+          {
+            $project: {
+              __v: 0,
+              createdAt: 0,
+              updatedAt: 0,
+            },
+          },
+        ],
+      },
+    },
+
+    {
+      $lookup: {
+        from: "menus",
+        localField: "items.dishId",
+        foreignField: "_id",
+        as: "itemDetails",
+        pipeline: [
+          {
+            $project: {
+              name: 1,
+              _id: 1,
+              price: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        customerId: 0,
+        __v: 0,
+      },
+    },
+  ]);
+
+  if (!singleOrder) {
+    throw new ApiError(404, "Error while fetching the order");
+  }
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, singleOrder, "Order details fetched successfully")
+    );
+});
+
+export { createOrder, getOrders, getSingleOrder };
