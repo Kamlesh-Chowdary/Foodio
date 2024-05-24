@@ -2,7 +2,8 @@ import ApiResponse from "../utils/apiResponse.js";
 import ApiError from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Order } from "../models/orders.model.js";
-
+import { CustomerDetail } from "../models/customer_detail.model.js";
+import { ObjectId, mongoose } from "mongoose";
 const createOrder = asyncHandler(async (req, res) => {
   const { items, message, paymentMethod, customerId } = req.body;
 
@@ -33,4 +34,72 @@ const createOrder = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, placedOrder, "Order Placed Successfully"));
 });
 
-export { createOrder };
+const getOrders = asyncHandler(async (req, res) => {
+  const userId = req.customer._id;
+  if (!userId) throw new ApiError(404, " Unauthorized Request");
+
+  const customerDetails = await CustomerDetail.find({
+    customer_id: userId,
+  }).select("-__v");
+
+  const customerDetailsIds = customerDetails.map((details) => details._id);
+
+  const orders = await Order.aggregate([
+    {
+      $match: {
+        customerId: {
+          $in: customerDetailsIds,
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "customerdetails",
+        localField: "customerId",
+        foreignField: "_id",
+        as: "customerDetails",
+        pipeline: [
+          {
+            $project: {
+              __v: 0,
+              createdAt: 0,
+              updatedAt: 0,
+            },
+          },
+        ],
+      },
+    },
+
+    {
+      $lookup: {
+        from: "menus",
+        localField: "items.dishId",
+        foreignField: "_id",
+        as: "itemDetails",
+        pipeline: [
+          {
+            $project: {
+              name: 1,
+              _id: 1,
+              price: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        customerId: 0,
+        __v: 0,
+      },
+    },
+  ]);
+
+  if (!orders) {
+    throw new ApiError(404, "Error while fetching the orders");
+  }
+
+  res.status(200).json(200, orders, "All orders fetched successfully");
+});
+
+export { createOrder, getOrders };
