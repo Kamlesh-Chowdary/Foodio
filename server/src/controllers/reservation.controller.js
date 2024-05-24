@@ -2,6 +2,7 @@ import ApiResponse from "../utils/apiResponse.js";
 import ApiError from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Reservation } from "../models/reservation.model.js";
+import { CustomerDetail } from "../models/customer_detail.model.js";
 const addReservation = asyncHandler(async (req, res) => {
   const { customer_id, date, time, members, occation, reservationStatus } =
     req.body;
@@ -108,18 +109,59 @@ const cancelReservation = asyncHandler(async (req, res) => {
 });
 
 const getReservation = asyncHandler(async (req, res) => {
-  const reservations = await Reservation.find({});
-  if (!reservations) {
-    throw new ApiError(404, "No Tables are reserved by this customer.");
-  }
+  const userId = req.customer._id;
+  if (!userId) throw new ApiError(404, " Unauthorized Request");
 
+  const customerDetails = await CustomerDetail.find({
+    customer_id: userId,
+  }).select("-__v");
+
+  const customerDetailsIds = customerDetails.map((details) => details._id);
+
+  const reservations = await Reservation.aggregate([
+    {
+      $match: {
+        customer_id: {
+          $in: customerDetailsIds,
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "customerdetails",
+        localField: "customer_id",
+        foreignField: "_id",
+        as: "customerDetails",
+        pipeline: [
+          {
+            $project: {
+              __v: 0,
+              createdAt: 0,
+              updatedAt: 0,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        customer_id: 0,
+      },
+    },
+  ]);
+  if (!reservations) {
+    throw new ApiError(404, "Error while fetching the reservations");
+  }
   res
     .status(200)
     .json(
       new ApiResponse(
-        201,
+        200,
         reservations,
-        "All the reservations have been fetched  successfully"
+        "All reservations fetched successfully"
       )
     );
 });
