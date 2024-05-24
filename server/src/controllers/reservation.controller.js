@@ -3,6 +3,7 @@ import ApiError from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Reservation } from "../models/reservation.model.js";
 import { CustomerDetail } from "../models/customer_detail.model.js";
+import mongoose from "mongoose";
 const addReservation = asyncHandler(async (req, res) => {
   const { customer_id, date, time, members, occation, reservationStatus } =
     req.body;
@@ -171,7 +172,54 @@ const getsingleReservation = asyncHandler(async (req, res) => {
 
   if (!reservation_id) throw new ApiError(404, "Reservation id is required");
 
-  const singleReservation = await Reservation.findById(reservation_id);
+  const userId = req.customer._id;
+  if (!userId) throw new ApiError(404, " Unauthorized Request");
+
+  const customerDetails = await CustomerDetail.find({
+    customer_id: userId,
+  }).select("-__v");
+
+  const customerDetailsIds = customerDetails.map((details) => details._id);
+
+  const singleReservation = await Reservation.aggregate([
+    {
+      $match: {
+        customer_id: {
+          $in: customerDetailsIds,
+        },
+      },
+    },
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(reservation_id),
+      },
+    },
+    {
+      $lookup: {
+        from: "customerdetails",
+        localField: "customer_id",
+        foreignField: "_id",
+        as: "customerDetails",
+        pipeline: [
+          {
+            $project: {
+              __v: 0,
+              createdAt: 0,
+              updatedAt: 0,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        customer_id: 0,
+      },
+    },
+  ]);
 
   if (!singleReservation) throw new ApiError(404, "Invalid reservation id");
 
