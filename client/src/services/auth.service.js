@@ -49,8 +49,24 @@ export class AuthService {
       throw error.response.data.message;
     }
   };
-}
 
+  currentUser = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get(`/users/current-user`, config);
+      return response.data.data;
+    } catch (error) {
+      console.log(
+        "Error while fetching current user details:",
+        error.response.data.message
+      );
+    }
+  };
+}
 const authService = new AuthService();
 
 export default authService;
