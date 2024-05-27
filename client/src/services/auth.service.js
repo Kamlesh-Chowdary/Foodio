@@ -42,7 +42,7 @@ export class AuthService {
           Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
         },
       };
-      await axiosInstance.post(`users/logout`, {}, config);
+      await axiosInstance.get(`users/logout`, {}, config);
       window.sessionStorage.setItem("Token", "");
     } catch (error) {
       console.log("Error while loggin out:", error.response.data.message);
