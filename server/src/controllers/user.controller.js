@@ -157,4 +157,22 @@ const getCustomerDetails = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerCustomer, loginCustomer, logoutCustomer, getCustomerDetails };
+const getCurrentUser = asyncHandler(async (req, res) => {
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        201,
+        req.customer,
+        "Current user details fetched successfully"
+      )
+    );
+});
+
+export {
+  registerCustomer,
+  loginCustomer,
+  logoutCustomer,
+  getCustomerDetails,
+  getCurrentUser,
+};
