@@ -35,6 +35,23 @@ export class CustomerService {
       throw error.response.data.message;
     }
   };
+  getCustomerDetails = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get("/users/get-details", config);
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while fetching customer details :: getCustomerDetails",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const customerService = new CustomerService();
