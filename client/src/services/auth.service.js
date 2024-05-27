@@ -31,7 +31,22 @@ export class AuthService {
       return response.data;
     } catch (error) {
       console.log("Error while logging in:", error.response.data.message);
-      throw error.response.data;
+      throw error.response.data.message;
+    }
+  };
+
+  logoutUser = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      await axiosInstance.post(`users/logout`, {}, config);
+      window.sessionStorage.setItem("Token", "");
+    } catch (error) {
+      console.log("Error while loggin out:", error.response.data.message);
+      throw error.response.data.message;
     }
   };
 }
