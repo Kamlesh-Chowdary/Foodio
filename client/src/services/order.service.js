@@ -67,6 +67,32 @@ export class OrderService {
       throw error.response.data.message;
     }
   };
+  editOrder = async (orderId, { items, message, paymentMethod }) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.patch(
+        `/order/edit-order/${orderId}`,
+        {
+          items,
+          message,
+          paymentMethod,
+        },
+        config
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while editing the order :: editOrder",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const orderService = new OrderService();
