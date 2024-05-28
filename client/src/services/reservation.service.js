@@ -32,6 +32,27 @@ export class ReservationService {
       throw error.response.data.message;
     }
   };
+
+  getSingleReservation = async (reservationId) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get(
+        `/reservations/single-reservation/${reservationId}`,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while getting single reservation detail :: getSingleReservation",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const reservationService = new ReservationService();
