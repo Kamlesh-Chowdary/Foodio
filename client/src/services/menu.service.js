@@ -57,6 +57,28 @@ export class MenuService {
       throw error.response.data.message;
     }
   };
+
+  removeDish = async (dishId) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get(
+        `/menu/remove-dish/${dishId}`,
+        config
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while removing the dish :: removeDish",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const menuService = new MenuService();
