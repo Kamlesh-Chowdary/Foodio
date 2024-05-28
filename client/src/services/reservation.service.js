@@ -100,6 +100,27 @@ export class ReservationService {
       throw error.response.data.message;
     }
   };
+
+  getReservations = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get(
+        "/reservations/all-reservations",
+        config
+      );
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while fetching all reservations :: getReservations",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const reservationService = new ReservationService();
