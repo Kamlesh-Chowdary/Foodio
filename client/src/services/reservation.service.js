@@ -53,6 +53,32 @@ export class ReservationService {
       throw error.response.data.message;
     }
   };
+
+  editReservation = async (reservationId, { date, time, occation }) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.patch(
+        `/reservations/edit-reservation/${reservationId}`,
+        {
+          date,
+          time,
+          occation,
+        },
+        config
+      );
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while editing reservation details :: editReservation",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const reservationService = new ReservationService();
