@@ -79,6 +79,25 @@ export class MenuService {
       throw error.response.data.message;
     }
   };
+
+  getMenu = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get("/menu/get-menu", config);
+
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while fetching the dishes :: getMenu",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const menuService = new MenuService();
