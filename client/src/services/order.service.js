@@ -46,6 +46,27 @@ export class OrderService {
       throw error.response.data.message;
     }
   };
+  getSingleOrder = async (orderId) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get(
+        `/order/single-order/${orderId}`,
+        config
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while fetching single order detail :: getSingleOrder",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const orderService = new OrderService();
