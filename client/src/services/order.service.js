@@ -28,6 +28,24 @@ export class OrderService {
       throw error.response.data.message;
     }
   };
+  getAllOrders = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get("/order/all-orders", config);
+
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while fetching orders :: getAllOrders",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const orderService = new OrderService();
