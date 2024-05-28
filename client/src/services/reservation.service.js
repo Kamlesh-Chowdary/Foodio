@@ -79,6 +79,27 @@ export class ReservationService {
       throw error.response.data.message;
     }
   };
+
+  cancelReservation = async (reservationId) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        },
+      };
+      const response = await axiosInstance.get(
+        `/reservations/cancel-reservation/${reservationId}`,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error while canceling reservation :: cancelReservation",
+        error.response.data.message
+      );
+      throw error.response.data.message;
+    }
+  };
 }
 
 const reservationService = new ReservationService();
