@@ -1,13 +1,8 @@
 import axiosInstance from "../helper/axiosInstance";
-
+import config from "../utils/configHeader";
 export class MenuService {
   addDish = async ({ name, category, description, price, rating }) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.post(
         "/menu/add-dish",
         {
@@ -31,11 +26,6 @@ export class MenuService {
 
   editDish = async (dishId, { name, category, description, price, rating }) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.patch(
         `/menu/edit-dish/${dishId}`,
         {
@@ -60,11 +50,6 @@ export class MenuService {
 
   removeDish = async (dishId) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.get(
         `/menu/remove-dish/${dishId}`,
         config

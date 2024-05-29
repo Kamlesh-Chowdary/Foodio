@@ -1,16 +1,11 @@
 import axiosInstance from "../helper/axiosInstance";
-
+import config from "../utils/configHeader";
 export class ReservationService {
   createReservation = async (
     customerId,
     { date, time, members, occation, reservationStatus }
   ) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.post(
         "/reservations/create-reservation",
         {
@@ -35,11 +30,6 @@ export class ReservationService {
 
   getSingleReservation = async (reservationId) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.get(
         `/reservations/single-reservation/${reservationId}`,
         config
@@ -56,11 +46,6 @@ export class ReservationService {
 
   editReservation = async (reservationId, { date, time, occation }) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.patch(
         `/reservations/edit-reservation/${reservationId}`,
         {
@@ -82,11 +67,6 @@ export class ReservationService {
 
   cancelReservation = async (reservationId) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.get(
         `/reservations/cancel-reservation/${reservationId}`,
         config
@@ -103,11 +83,6 @@ export class ReservationService {
 
   getReservations = async () => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.get(
         "/reservations/all-reservations",
         config

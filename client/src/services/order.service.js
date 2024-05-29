@@ -1,13 +1,8 @@
 import axiosInstance from "../helper/axiosInstance";
-
+import config from "../utils/configHeader";
 export class OrderService {
   createOrder = async (customerId, { items, message, paymentMethod }) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.post(
         "/order/create-order",
         {
@@ -30,11 +25,6 @@ export class OrderService {
   };
   getAllOrders = async () => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.get("/order/all-orders", config);
 
       return response.data;
@@ -48,11 +38,6 @@ export class OrderService {
   };
   getSingleOrder = async (orderId) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.get(
         `/order/single-order/${orderId}`,
         config
@@ -69,11 +54,6 @@ export class OrderService {
   };
   editOrder = async (orderId, { items, message, paymentMethod }) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.patch(
         `/order/edit-order/${orderId}`,
         {

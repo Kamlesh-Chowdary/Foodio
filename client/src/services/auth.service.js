@@ -1,5 +1,5 @@
 import axiosInstance from "../helper/axiosInstance";
-
+import config from "../utils/configHeader";
 export class AuthService {
   createAccount = async ({ fullname, email, password }) => {
     try {
@@ -37,11 +37,6 @@ export class AuthService {
 
   logoutUser = async () => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       await axiosInstance.get(`users/logout`, {}, config);
       window.sessionStorage.setItem("Token", "");
     } catch (error) {
@@ -52,11 +47,6 @@ export class AuthService {
 
   currentUser = async () => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-        },
-      };
       const response = await axiosInstance.get(`/users/current-user`, config);
       return response.data.data;
     } catch (error) {
