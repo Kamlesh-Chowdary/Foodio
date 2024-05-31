@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import authService from "./services/auth.service";
 import "./App.css";
-import Header from "./components/Header/Header";
 import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, logout } from "./store/authSlice";
+import { Footer, Header } from "./components";
 function App() {
   const dispatch = useDispatch();
 
@@ -24,7 +24,9 @@ function App() {
   return (
     <>
       <Header />
+
       <Outlet />
+      <Footer />
     </>
   );
 }

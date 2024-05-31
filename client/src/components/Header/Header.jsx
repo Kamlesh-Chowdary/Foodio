@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Logo from "../Logo";
+
 import { NavLink } from "react-router-dom";
-import Container from "../Container/Container";
+import { Container, Logo } from "../index";
 import { useState } from "react";
 import { X, Menu, ShoppingCart } from "lucide-react";
 
-const index = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Header = () => {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
   const [display, setDisplay] = useState("hidden");
   const navItems = [
@@ -70,7 +69,7 @@ const index = () => {
                       }`
                     }
                   >
-                    {item.name}
+                    <li>{item.name}</li>
                   </NavLink>
                 );
               })}
@@ -92,4 +91,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Header;
