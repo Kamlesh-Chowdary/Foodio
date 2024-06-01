@@ -1,9 +1,8 @@
+@layer base {
+  :root {
+    --primary-theme-color: 245 71 72;
+  }
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}

@@ -26,11 +26,11 @@ const Footer = () => {
   ];
   return (
     <>
-      <footer>
+      <footer className="bg-[#1B1919] font-semibold text-white">
         <Container>
           <div>
             <div>
-              <Logo />
+              <Logo fill="white" />
             </div>
             <div>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -45,7 +45,7 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h1>Page</h1>
+            <h1 className="text-primary">Page</h1>
             <ul>
               {navItems.map((item) => {
                 return (
@@ -57,7 +57,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h1>Information</h1>
+            <h1 className="text-primary">Information</h1>
             <ul>
               <Link to="about" key="About us">
                 <li>About us</li>
@@ -67,7 +67,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h1>Get In Touch</h1>
+            <h1 className="text-primary">Get In Touch</h1>
             <ul>
               <li>2972 Westheimer Rd. Santa Ana, Illinois 85486</li>
               <li>abc@example.com</li>

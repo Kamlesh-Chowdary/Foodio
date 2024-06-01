@@ -64,7 +64,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       `${
                         isActive
-                          ? "text-[#F54748] border-b-2  border-[#F54748]"
+                          ? "text-primary border-b-2  border-primary"
                           : "text-black "
                       }`
                     }
@@ -81,7 +81,7 @@ const Header = () => {
             <button className="rounded-full p-3 bg-white">
               <ShoppingCart />
             </button>
-            <button className="bg-[#F54748] text-white font-semibold rounded-3xl py-3 px-7">
+            <button className="bg-primary text-white font-semibold rounded-3xl py-3 px-7">
               Login
             </button>
           </div>
