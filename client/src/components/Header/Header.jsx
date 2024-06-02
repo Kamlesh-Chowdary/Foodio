@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { NavLink } from "react-router-dom";
-import { Container, Logo } from "../index";
+import { Container, Logo, Button } from "../index";
 import { useState } from "react";
 import { X, Menu, ShoppingCart } from "lucide-react";
 
@@ -81,9 +81,9 @@ const Header = () => {
             <button className="rounded-full p-3 bg-white">
               <ShoppingCart />
             </button>
-            <button className="bg-primary text-white font-semibold rounded-3xl py-3 px-7">
+            <Button className="bg-primary text-white font-semibold rounded-3xl py-3 px-7">
               Login
-            </button>
+            </Button>
           </div>
         </nav>
       </Container>
