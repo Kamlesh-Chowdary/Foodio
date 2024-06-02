@@ -25,9 +25,9 @@ const Footer = () => {
   ];
   return (
     <>
-      <footer className="bg-[#1B1919] md:h-svh font-medium   text-lg text-white">
+      <footer className="bg-[#1B1919] lg:h-svh font-medium   text-lg text-white">
         <Container>
-          <div className="md:flex  justify-between gap-28 py-5 md:py-16 md:w-5/6 m-auto">
+          <div className="lg:flex  justify-between gap-28 py-5 lg:py-16 lg:w-5/6 m-auto">
             <div className=" ">
               <div className="my-10">
                 <Logo fill="white" />
@@ -36,7 +36,7 @@ const Footer = () => {
                 Viverra gravida morbi egestas facilisis tortor netus non duis
                 tempor.
               </div>
-              <div className="flex  justify-between ">
+              <div className="flex justify-evenly lg:justify-start lg:gap-10 ">
                 <Link className="rounded-full bg-white p-3 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ const Footer = () => {
                 </Link>
               </div>
             </div>
-            <div className="flex md:gap-14 justify-between">
+            <div className="flex lg:gap-14 justify-between">
               <div>
                 <h1 className="text-primary py-10">Page</h1>
                 <ul className="flex flex-col gap-3">
@@ -87,7 +87,7 @@ const Footer = () => {
               </div>
               <div>
                 <h1 className="text-primary py-10">Information</h1>
-                <ul className="flex flex-col md:items-start items-end gap-3">
+                <ul className="flex flex-col lg:items-start items-end gap-3">
                   <Link to="about" key="About us">
                     <li>About us</li>
                   </Link>
