@@ -33,8 +33,8 @@ const Footer = () => {
                 <Logo fill="white" />
               </div>
               <div className="my-10">
-                Viverra gravida morbi egestas facilisis tortor netus non duis
-                tempor.
+                Experience seamless dining with our easy-to-use app, ensuring
+                you enjoy your meals effortlessly.
               </div>
               <div className="flex justify-evenly lg:justify-start lg:gap-10 ">
                 <Link className="rounded-full bg-white p-3 ">
