@@ -11,13 +11,14 @@ const Homepage = () => {
             We provide best food in town, we provide home delivery and dine in
             services.
           </p>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap md:flex-nowrap">
             <Button className=" font-semibold px-10 py-5 rounded-2xl  text-xl ">
               Order now
             </Button>
             <Button
               textColor="text-primary"
-              className="bg-[#F8E3E3] px-10 py-5 font-semibold  rounded-2xl  text-xl "
+              bgColor="bg-[#F8E3E3]"
+              className="px-10 py-5 font-semibold  rounded-2xl  text-xl "
             >
               Reservation
             </Button>
@@ -25,7 +26,7 @@ const Homepage = () => {
         </div>
         <div>
           <img
-            src="public/images/img_hero.png"
+            src="/images/img_hero.png"
             alt="Hero Image"
             className="mt-10 md:my-0"
           />
@@ -36,7 +37,7 @@ const Homepage = () => {
           Our Most Popular <span className="text-primary">Dish.</span>
         </h1>
         <img
-          src="public/images/img_popular_dish_quinoa.png"
+          src="/images/img_popular_dish_quinoa.png"
           alt="popular dish"
           className="mt-5 md:my-0 w-4/5 md:w-full m-auto"
         />
@@ -61,7 +62,7 @@ const Homepage = () => {
         <div className="md:grid grid-cols-3 gap-8  lg:m-20 mx-5">
           <div>
             <img
-              src="public/images/img_chef_1.png"
+              src="/images/img_chef_1.png"
               alt="chef 1"
               className="bg-gray-200 rounded-3xl "
             />
@@ -74,7 +75,7 @@ const Homepage = () => {
           </div>
           <div>
             <img
-              src="public/images/img_chef_2.png"
+              src="/images/img_chef_2.png"
               alt="chef 2"
               className="bg-gray-200 rounded-3xl "
             />
@@ -87,7 +88,7 @@ const Homepage = () => {
           </div>
           <div className="">
             <img
-              src="public/images/img_chef_3.png"
+              src="/images/img_chef_3.png"
               alt=" chef 3"
               className="bg-gray-200 rounded-3xl "
             />
@@ -111,7 +112,8 @@ const Homepage = () => {
             </Button>
             <Button
               textColor="text-primary"
-              className="bg-[#F8E3E3] px-10 lg:px-14 py-5 font-semibold  rounded-2xl  text-xl "
+              bgColor="bg-[#F8E3E3]"
+              className=" px-10 lg:px-14 py-5 font-semibold  rounded-2xl  text-xl "
             >
               Reservation
             </Button>
