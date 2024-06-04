@@ -36,9 +36,9 @@ const About = () => {
           <p className="text-5xl text-[#301E08] py-6">Ismail Marzuki</p>
           <p className="text-xl text-[#301E08] ">
             Meet Ismail Marzuki, the visionary owner and executive chef of
-            Foodio. With over 20 years of culinary experience, Alex combines
+            Foodio. With over 20 years of culinary experience, Ismail combines
             innovative techniques with a passion for fresh, local ingredients to
-            create unforgettable dishes. Under Alex&apos;s leadership, Foodio
+            create unforgettable dishes. Under Ismail&apos;s leadership, Foodio
             promises a dining experience that&apos;s both exceptional and
             accessible.
           </p>

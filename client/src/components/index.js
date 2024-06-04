@@ -5,5 +5,6 @@ import Logo from "./Logo";
 import Homepage from "./Homepage";
 import Button from "./Button";
 import About from "./About";
+import Input from "./Input";
 
-export { Container, Footer, Header, Logo, Homepage, Button, About };
+export { Container, Footer, Header, Logo, Homepage, Button, About, Input };

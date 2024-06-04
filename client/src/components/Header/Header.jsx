@@ -46,7 +46,9 @@ const Header = () => {
       <Container>
         <nav className="md:flex md:justify-evenly md:w-full   items-center  md:mx-auto md:my-7">
           <div className="flex justify-between  items-center mb-4 md:mb-0 ">
-            <Logo />
+            <NavLink to="" key="logo">
+              <Logo />
+            </NavLink>
             <div className="md:hidden">
               <button onClick={toggleNavbar}>
                 {isNavbarVisible ? <X /> : <Menu />}
