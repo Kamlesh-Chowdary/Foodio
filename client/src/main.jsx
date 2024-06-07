@@ -5,7 +5,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Homepage, About, Contact } from "./components/index.js";
+import { Homepage, About, Contact, Reservation } from "./components/index.js";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/reservation",
+        element: <Reservation />,
       },
     ],
   },

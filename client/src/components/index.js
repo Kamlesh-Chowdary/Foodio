@@ -7,6 +7,7 @@ import Button from "./Button";
 import About from "./About";
 import Contact from "./Contact";
 import Input from "./Input";
+import Reservation from "./Reservation";
 
 export {
   Container,
@@ -18,4 +19,5 @@ export {
   About,
   Contact,
   Input,
+  Reservation,
 };
