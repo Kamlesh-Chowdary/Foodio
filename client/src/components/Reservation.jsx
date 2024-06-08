@@ -24,7 +24,7 @@ const Reservation = () => {
     setShowEnterDetailsForm(!showEnterDetailsForm);
     setReservationDetails(data);
   };
-  console.log(showEnterDetailsForm);
+
   return (
     <Container>
       <section className=" h-full lg:h-screen md:grid grid-cols-2 md:py-6 gap-16 lg:w-5/6 pt-5 m-auto">
@@ -73,6 +73,7 @@ const Reservation = () => {
               "Group Booth (6-8)",
               "Celebration Table (8-10)",
             ]}
+            {...register("members", { required: true })}
           />
 
           <Button
