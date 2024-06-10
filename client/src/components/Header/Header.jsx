@@ -37,7 +37,7 @@ const Header = () => {
 
   const toggleNavbar = () => {
     setIsNavbarVisible(!isNavbarVisible);
-    console.log(isNavbarVisible);
+
     if (!isNavbarVisible) setDisplay("block");
     else setDisplay("hidden");
   };
