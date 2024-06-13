@@ -10,6 +10,8 @@ import Input from "./Input";
 import Reservation from "./Reservation";
 import Select from "./Select";
 import Reservation_Details from "./Reservation_Details";
+import Menu from "./Menu";
+import ItemCard from "./ItemCard";
 
 export {
   Container,
@@ -24,4 +26,6 @@ export {
   Reservation,
   Select,
   Reservation_Details,
+  Menu,
+  ItemCard,
 };
