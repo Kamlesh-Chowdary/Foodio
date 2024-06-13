@@ -3,7 +3,7 @@ import { Container, Button, ItemCard } from "./index";
 import menuService from "../services/menu.service";
 const Menu = () => {
   const [menuItems, setMenuItems] = useState([]);
-  console.log(menuItems);
+
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
@@ -23,7 +23,7 @@ const Menu = () => {
         </h1>
         <div className="grid grid-cols-3">
           {menuItems.map((item) => (
-            <ItemCard item={item} />
+            <ItemCard item={item} key={item.name} />
           ))}
         </div>
       </section>
