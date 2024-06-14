@@ -18,10 +18,10 @@ const Menu = () => {
   return (
     <Container>
       <section className="lg:w-5/6 py-5 m-auto ">
-        <h1 className="text-7xl font-bold text-center text-[#301E08] ">
+        <h1 className="text-4xl md:text-7xl font-bold text-center text-[#301E08] ">
           Our Popular Menu
         </h1>
-        <div className="grid grid-cols-3">
+        <div className="md:grid md:gri-cols-2 lg:grid-cols-3 ">
           {menuItems.map((item) => (
             <ItemCard item={item} key={item.name} />
           ))}
