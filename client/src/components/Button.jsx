@@ -12,7 +12,7 @@ const Button = ({
     <button
       type={type}
       {...props}
-      className={`${bgColor} ${textColor} ${className} hover:-translate-y-1 hover:scale-90`}
+      className={`${bgColor} ${textColor} ${className} hover:-translate-y-1 hover:scale-90 text-nowrap`}
     >
       {children}
     </button>
