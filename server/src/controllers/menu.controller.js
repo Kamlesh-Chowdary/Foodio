@@ -93,7 +93,9 @@ const removeDish = asyncHandler(async (req, res) => {
 });
 
 const getMenuList = asyncHandler(async (req, res) => {
-  const menuList = await Menu.find({}).select("-__v");
+  const { category } = req.query;
+  const filter = category && category !== "All Category" ? { category } : {};
+  const menuList = await Menu.find(filter).select("-__v");
   if (!menuList) throw new ApiError(404, "Error while fetching whole menu");
 
   res

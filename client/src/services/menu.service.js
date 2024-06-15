@@ -65,9 +65,11 @@ export class MenuService {
     }
   };
 
-  getMenu = async () => {
+  getMenu = async (category) => {
     try {
-      const response = await axiosInstance.get("/menu/get-menu");
+      const response = await axiosInstance.get("/menu/get-menu", {
+        params: { category },
+      });
 
       return response.data;
     } catch (error) {
