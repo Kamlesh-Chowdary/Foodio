@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Input, Button } from "./index";
+import { Input, Button } from "../components/index";
 const Contact = () => {
   const { register, handleSubmit, reset } = useForm();
 
