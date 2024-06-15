@@ -3,7 +3,6 @@ import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import Logo from "./Logo";
 import Button from "./Button";
-import About from "./About";
 import Contact from "./Contact";
 import Input from "./Input";
 import Reservation from "./Reservation";
@@ -17,7 +16,6 @@ export {
   Header,
   Logo,
   Button,
-  About,
   Contact,
   Input,
   Reservation,
