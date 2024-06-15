@@ -1,4 +1,4 @@
-import { Container, Button } from "./index";
+import { Container, Button } from "../components/index";
 const Homepage = () => {
   return (
     <Container>

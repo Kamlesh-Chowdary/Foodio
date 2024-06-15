@@ -5,14 +5,8 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import {
-  Homepage,
-  About,
-  Contact,
-  Reservation,
-  Menu,
-} from "./components/index.js";
-
+import { About, Contact, Reservation, Menu } from "./components/index.js";
+import Homepage from "./pages/Homepage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
