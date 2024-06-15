@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { Container, Button, Input, Select } from "./index";
-import Reservation_Details from "./Reservation_Details";
+import {
+  Container,
+  Button,
+  Input,
+  Select,
+  Reservation_Details,
+} from "../components/index";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 
