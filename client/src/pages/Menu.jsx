@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, ItemCard } from "../components/index";
+import { Container, ItemCard, PaginationGrid } from "../components/index";
 import menuService from "../services/menu.service";
+
 const Menu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All Category");
@@ -12,6 +13,8 @@ const Menu = () => {
     "Burger",
     "Naan",
   ];
+  const itemsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -24,7 +27,25 @@ const Menu = () => {
       }
     };
     fetchMenuItems();
-  }, [selectedCategory]);
+  }, [selectedCategory, currentPage]);
+  const handleCategoryClick = (e) => {
+    setCurrentPage(1);
+    setSelectedCategory(e.target.textContent);
+  };
+  const handleNextPage = () => {
+    const totalPages = Math.ceil(menuItems.length / itemsPerPage);
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+
+  const currentItem = menuItems.slice(firstItemIndex, lastItemIndex);
+
   return (
     <Container>
       <section className="lg:w-5/6 py-5 m-auto ">
@@ -43,18 +64,30 @@ const Menu = () => {
                   } 
                   `}
                 key={item}
-                onClick={() => setSelectedCategory(item)}
+                onClick={handleCategoryClick}
               >
                 {item}
               </li>
             ))}
           </ul>
         </section>
+        <section className="flex justify-end">
+          <PaginationGrid
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
+            currentPage={currentPage}
+          />
+        </section>
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {menuItems.map((item) => (
+          {currentItem.map((item) => (
             <ItemCard item={item} key={item.name} />
           ))}
         </div>
+        <PaginationGrid
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+          currentPage={currentPage}
+        />
       </section>
     </Container>
   );

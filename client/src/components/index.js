@@ -7,6 +7,7 @@ import Input from "./Input";
 import Select from "./Select";
 import Reservation_Details from "./Reservation_Details";
 import ItemCard from "./ItemCard";
+import PaginationGrid from "./PaginationGrid";
 
 export {
   Container,
@@ -18,4 +19,5 @@ export {
   Select,
   Reservation_Details,
   ItemCard,
+  PaginationGrid,
 };
