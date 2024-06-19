@@ -11,6 +11,7 @@ import Menu from "./pages/Menu.jsx";
 import About from "./pages/About.jsx";
 import Reservation from "./pages/Reservation.jsx";
 import Contact from "./pages/Contact.jsx";
+import Order from "./pages/Order.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/menu",
         element: <Menu />,
+      },
+      {
+        path: "/order",
+        element: <Order />,
       },
     ],
   },
