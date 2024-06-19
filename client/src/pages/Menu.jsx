@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Container, ItemCard, PaginationGrid } from "../components/index";
 import menuService from "../services/menu.service";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setMenuItems } from "../store/menuSlice";
 const Menu = () => {
-  const [menuItems, setMenuItems] = useState([]);
+  const menuItems = useSelector((state) => state.menu.menuItems);
   const [selectedCategory, setSelectedCategory] = useState("All Category");
   const categories = [
     "All Category",
@@ -13,6 +14,8 @@ const Menu = () => {
     "Curry",
     "Naan",
   ];
+  const dispatch = useDispatch();
+
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,13 +24,13 @@ const Menu = () => {
       try {
         const response = await menuService.getMenu(selectedCategory);
 
-        setMenuItems(response.data);
+        dispatch(setMenuItems(response.data));
       } catch (error) {
         console.log("Error While fetching menu items", error);
       }
     };
     fetchMenuItems();
-  }, [selectedCategory, currentPage]);
+  }, [selectedCategory, currentPage, dispatch]);
   const handleCategoryClick = (e) => {
     setCurrentPage(1);
     setSelectedCategory(e.target.textContent);
@@ -44,7 +47,8 @@ const Menu = () => {
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
 
-  const currentItem = menuItems.slice(firstItemIndex, lastItemIndex);
+  const currentItem =
+    menuItems && menuItems.slice(firstItemIndex, lastItemIndex);
 
   return (
     <Container>
@@ -73,9 +77,8 @@ const Menu = () => {
         </section>
 
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {currentItem.map((item) => (
-            <ItemCard item={item} key={item.name} />
-          ))}
+          {currentItem &&
+            currentItem.map((item) => <ItemCard item={item} key={item.name} />)}
         </div>
         <PaginationGrid
           handleNextPage={handleNextPage}
