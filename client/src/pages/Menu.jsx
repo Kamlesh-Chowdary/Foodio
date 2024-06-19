@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, ItemCard, PaginationGrid } from "../components/index";
 import menuService from "../services/menu.service";
 
@@ -7,10 +7,10 @@ const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState("All Category");
   const categories = [
     "All Category",
-    "Curry",
-    "Dessert",
     "Pizza",
     "Burger",
+    "Dessert",
+    "Curry",
     "Naan",
   ];
   const itemsPerPage = 6;
@@ -71,13 +71,7 @@ const Menu = () => {
             ))}
           </ul>
         </section>
-        <section className="flex justify-end">
-          <PaginationGrid
-            handleNextPage={handleNextPage}
-            handlePrevPage={handlePrevPage}
-            currentPage={currentPage}
-          />
-        </section>
+
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {currentItem.map((item) => (
             <ItemCard item={item} key={item.name} />

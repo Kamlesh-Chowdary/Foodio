@@ -1,8 +1,8 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Button } from "./index";
 const ItemCard = ({ item }) => {
   return (
-    <div className="bg-white rounded-3xl h-full lg:h-screen my-5 p-5 grid grid-rows-subgrid row-span-5">
+    <div className="bg-white rounded-3xl  lg:h-screen my-5 p-5 grid grid-rows-subgrid row-span-5">
       <section className=" flex justify-center items-center">
         <img
           src={`dishes/${item.name}.png`}
@@ -14,7 +14,9 @@ const ItemCard = ({ item }) => {
         {item.name}
       </p>
       <p className="text-xl text-center text-[#301E08] ">{item.description}</p>
-      <p className="text-xl text-center text-[#301E08] ">{item.rating}</p>
+      <p className="text-xl text-center text-[#301E08] py-5 md:py-0">
+        {item.rating}
+      </p>
       <section className="flex justify-between items-baseline ">
         <p className="text-3xl font-semibold text-[#301E08] ">₹{item.price}</p>
         <Button className=" font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl ">
