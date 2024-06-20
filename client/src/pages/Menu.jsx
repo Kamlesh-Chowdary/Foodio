@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Container, ItemCard, PaginationGrid } from "../components/index";
-import menuService from "../services/menu.service";
+
 import { useDispatch, useSelector } from "react-redux";
-import { setMenuItems } from "../store/menuSlice";
+import { fetchMenuItems } from "../store/menuSlice";
 const Menu = () => {
-  const menuItems = useSelector((state) => state.menu.menuItems);
+  const { menuItems, status } = useSelector((state) => state.menu);
   const [selectedCategory, setSelectedCategory] = useState("All Category");
   const categories = [
     "All Category",
@@ -20,17 +20,17 @@ const Menu = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const fetchMenuItems = async () => {
-      try {
-        const response = await menuService.getMenu(selectedCategory);
+    dispatch(fetchMenuItems(selectedCategory));
+  }, [selectedCategory, dispatch]);
 
-        dispatch(setMenuItems(response.data));
-      } catch (error) {
-        console.log("Error While fetching menu items", error);
-      }
-    };
-    fetchMenuItems();
-  }, [selectedCategory, currentPage, dispatch]);
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>Error loading items.</div>;
+  }
+
   const handleCategoryClick = (e) => {
     setCurrentPage(1);
     setSelectedCategory(e.target.textContent);
