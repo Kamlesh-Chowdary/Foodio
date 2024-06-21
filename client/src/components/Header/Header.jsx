@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Container, Logo, Button } from "../index";
 import { useState } from "react";
 import { X, Menu, ShoppingCart } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
   const [display, setDisplay] = useState("hidden");
   const navItems = [
@@ -44,12 +47,20 @@ const Header = () => {
   return (
     <header className="pt-5 md:pt-0">
       <Container>
-        <nav className="md:flex md:justify-evenly md:w-full   items-center  md:mx-auto md:my-7">
+        <nav className="md:flex md:justify-evenly md:w-full   bg-blur items-center  md:mx-auto md:my-7">
           <div className="flex justify-between  items-center mb-4 md:mb-0 ">
             <NavLink to="" key="logo">
               <Logo />
             </NavLink>
-            <div className="md:hidden">
+            <div className="md:hidden flex gap-8 relative">
+              <button className="md:hidden" onClick={() => navigate("/cart")}>
+                {cartItems.length > 0 && (
+                  <span className="text-xs font-semibold flex items-center justify-center w-5 h-5 bg-primary text-white rounded-full absolute  left-3 -top-2">
+                    {cartItems.length}
+                  </span>
+                )}
+                <ShoppingCart />
+              </button>
               <button onClick={toggleNavbar}>
                 {isNavbarVisible ? <X /> : <Menu />}
               </button>
@@ -80,7 +91,15 @@ const Header = () => {
           <div
             className={`${display} md:flex  mt-4 flex md:mt-0  gap-4 justify-center items-center`}
           >
-            <button className="rounded-full p-3 bg-white">
+            <button
+              className="hidden md:block relative"
+              onClick={() => navigate("/cart")}
+            >
+              {cartItems.length > 0 && (
+                <span className="text-xs font-semibold flex items-center justify-center w-5 h-5 bg-primary text-white rounded-full absolute  left-3 -top-2">
+                  {cartItems.length}
+                </span>
+              )}
               <ShoppingCart />
             </button>
             <Button className="bg-primary text-white font-semibold rounded-3xl py-3 px-7">

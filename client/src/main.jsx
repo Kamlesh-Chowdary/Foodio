@@ -5,7 +5,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import {} from "./components/index.js";
+import { Cart } from "./components/index.js";
 import Homepage from "./pages/Homepage.jsx";
 import Menu from "./pages/Menu.jsx";
 import About from "./pages/About.jsx";
@@ -40,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/order",
         element: <Order />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },

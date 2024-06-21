@@ -17,7 +17,11 @@ const ItemCard = ({ item, CartManager }) => {
       <p className="text-xl text-center text-[#301E08] py-5 md:py-0">
         {item.rating}
       </p>
-      <section className="flex justify-between items-baseline ">
+      <section
+        className={`flex justify-between gap-5  ${
+          CartManager ? "items-center" : "items-baseline"
+        }`}
+      >
         <p className="text-3xl font-semibold text-[#301E08] ">₹{item.price}</p>
         {CartManager ? (
           <CartManager item={item} />
