@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Button } from "./index";
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, CartManager }) => {
   return (
     <div className="bg-white rounded-3xl  lg:h-screen my-5 p-5 grid grid-rows-subgrid row-span-5">
       <section className=" flex justify-center items-center">
@@ -19,9 +19,13 @@ const ItemCard = ({ item }) => {
       </p>
       <section className="flex justify-between items-baseline ">
         <p className="text-3xl font-semibold text-[#301E08] ">₹{item.price}</p>
-        <Button className=" font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl ">
-          Order now
-        </Button>
+        {CartManager ? (
+          <CartManager item={item} />
+        ) : (
+          <Button className=" font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl ">
+            Order now
+          </Button>
+        )}
       </section>
     </div>
   );
