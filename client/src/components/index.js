@@ -9,6 +9,7 @@ import Reservation_Details from "./Reservation_Details";
 import ItemCard from "./ItemCard";
 import PaginationGrid from "./PaginationGrid";
 import Cart from "./Cart";
+import CartManager from "./CartManager";
 export {
   Container,
   Footer,
@@ -21,4 +22,5 @@ export {
   ItemCard,
   PaginationGrid,
   Cart,
+  CartManager,
 };

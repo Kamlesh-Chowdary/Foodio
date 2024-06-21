@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
-import { Container, ItemCard, PaginationGrid, Cart } from "../components/index";
+import {
+  Container,
+  ItemCard,
+  PaginationGrid,
+  Cart,
+  CartManager,
+} from "../components/index";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMenuItems } from "../store/menuSlice";
-const Menu = () => {
+const Order = () => {
   const [selectedCategory, setSelectedCategory] = useState("All Category");
   const { menuItems, status } = useSelector((state) => state.menu);
+
   const categories = [
     "All Category",
     "Pizza",
@@ -84,7 +91,11 @@ const Menu = () => {
           <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
             {currentItem &&
               currentItem.map((item) => (
-                <ItemCard item={item} key={item.name} />
+                <ItemCard
+                  item={item}
+                  key={item.name}
+                  CartManager={CartManager}
+                />
               ))}
           </div>
           <div className="hidden md:block">
@@ -101,4 +112,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default Order;
