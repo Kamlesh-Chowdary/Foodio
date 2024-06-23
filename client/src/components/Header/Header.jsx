@@ -55,14 +55,14 @@ const Header = () => {
             <div className="md:hidden flex gap-8 relative">
               <button className="md:hidden" onClick={() => navigate("/cart")}>
                 {cartItems.length > 0 && (
-                  <span className="text-xs font-semibold flex items-center justify-center w-5 h-5 bg-primary text-white rounded-full absolute  left-3 -top-2">
+                  <span className="text-xs font-semibold flex items-center justify-center w-5 h-5 bg-primary text-white rounded-full absolute  left-4 -top-1">
                     {cartItems.length}
                   </span>
                 )}
-                <ShoppingCart />
+                <ShoppingCart size={28} />
               </button>
               <button onClick={toggleNavbar}>
-                {isNavbarVisible ? <X /> : <Menu />}
+                {isNavbarVisible ? <X size={28} /> : <Menu size={28} />}
               </button>
             </div>
           </div>
@@ -96,11 +96,11 @@ const Header = () => {
               onClick={() => navigate("/cart")}
             >
               {cartItems.length > 0 && (
-                <span className="text-xs font-semibold flex items-center justify-center w-5 h-5 bg-primary text-white rounded-full absolute  left-3 -top-2">
+                <span className="text-xs font-semibold flex items-center justify-center w-5 h-5 bg-primary text-white rounded-full absolute  left-4 -top-1">
                   {cartItems.length}
                 </span>
               )}
-              <ShoppingCart />
+              <ShoppingCart size={30} />
             </button>
             <Button className="bg-primary text-white font-semibold rounded-3xl py-3 px-7">
               Login

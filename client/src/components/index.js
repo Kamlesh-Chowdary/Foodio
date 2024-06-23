@@ -10,6 +10,7 @@ import ItemCard from "./ItemCard";
 import PaginationGrid from "./PaginationGrid";
 import Cart from "./Cart";
 import CartManager from "./CartManager";
+import CartCard from "./CartCard";
 export {
   Container,
   Footer,
@@ -23,4 +24,5 @@ export {
   PaginationGrid,
   Cart,
   CartManager,
+  CartCard,
 };

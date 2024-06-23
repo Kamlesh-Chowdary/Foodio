@@ -3,7 +3,6 @@ import {
   Container,
   ItemCard,
   PaginationGrid,
-  Cart,
   CartManager,
 } from "../components/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,22 +85,12 @@ const Order = () => {
             </h1>
           )}
         </section>
-
-        <section className="flex">
-          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-            {currentItem &&
-              currentItem.map((item) => (
-                <ItemCard
-                  item={item}
-                  key={item.name}
-                  CartManager={CartManager}
-                />
-              ))}
-          </div>
-          <div className="hidden md:block">
-            <Cart />
-          </div>
-        </section>
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+          {currentItem &&
+            currentItem.map((item) => (
+              <ItemCard item={item} key={item.name} CartManager={CartManager} />
+            ))}
+        </div>
         <PaginationGrid
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}

@@ -5,13 +5,13 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Cart } from "./components/index.js";
 import Homepage from "./pages/Homepage.jsx";
 import Menu from "./pages/Menu.jsx";
 import About from "./pages/About.jsx";
 import Reservation from "./pages/Reservation.jsx";
 import Contact from "./pages/Contact.jsx";
 import Order from "./pages/Order.jsx";
+import Cart from "./pages/Cart.jsx";
 const router = createBrowserRouter([
   {
     path: "/",

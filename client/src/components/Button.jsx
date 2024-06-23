@@ -10,7 +10,11 @@ const Button = ({
 }) => {
   const navigate = useNavigate();
   const handleNavigate = (e) => {
-    if (e.target.innerHTML === "Order now") navigate("/order");
+    if (
+      e.target.innerHTML === "Order now" ||
+      e.target.innerHTML === "Order now?"
+    )
+      navigate("/order");
     else if (e.target.innerHTML === "Reservation") navigate("/reservation");
   };
 

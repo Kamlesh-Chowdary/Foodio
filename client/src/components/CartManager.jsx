@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Minus, Plus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../store/cartSlice";
+import { addToCart, reduceQuantity } from "../store/cartSlice";
 const CartManager = ({ item }) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const currentItem = cartItems.find((cartItem) => cartItem._id === item._id);
@@ -11,7 +11,7 @@ const CartManager = ({ item }) => {
     dispatch(addToCart(item));
   };
   const handleDecrement = () => {
-    dispatch(removeFromCart(item));
+    dispatch(reduceQuantity(item));
   };
   return (
     <section className="flex justify-evenly w-full bg-[#f9f9f9] p-2 items-center rounded-3xl">
