@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { Container, ItemCard, PaginationGrid } from "../components/index";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMenuItems } from "../store/menuSlice";
-const Menu = () => {
+const Menu = ({ CartManager }) => {
   const { menuItems, status } = useSelector((state) => state.menu);
   const [selectedCategory, setSelectedCategory] = useState("All Category");
   const categories = [
@@ -22,10 +23,6 @@ const Menu = () => {
   useEffect(() => {
     dispatch(fetchMenuItems(selectedCategory));
   }, [selectedCategory, dispatch]);
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
 
   if (status === "failed") {
     return <div>Error loading items.</div>;
@@ -54,7 +51,7 @@ const Menu = () => {
     <Container>
       <section className="lg:w-5/6 py-5 m-auto ">
         <h1 className="text-4xl md:text-7xl font-bold text-center text-[#301E08] ">
-          Our Popular Menu
+          {!CartManager && "Our Popular"} Menu
         </h1>
         <section>
           <ul className="flex justify-between gap-5 no-scrollbar mt-10 mb-5 overflow-auto">
@@ -76,10 +73,20 @@ const Menu = () => {
           </ul>
         </section>
 
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {currentItem &&
-            currentItem.map((item) => <ItemCard item={item} key={item.name} />)}
-        </div>
+        {status === "loading" ? (
+          <p className="text-4xl text-[#301E08] text-center py-7">Loading...</p>
+        ) : (
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+            {currentItem &&
+              currentItem.map((item) => (
+                <ItemCard
+                  item={item}
+                  key={item.name}
+                  CartManager={CartManager}
+                />
+              ))}
+          </div>
+        )}
         <PaginationGrid
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}

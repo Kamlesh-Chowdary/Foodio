@@ -28,10 +28,6 @@ const Order = () => {
     dispatch(fetchMenuItems(selectedCategory));
   }, [selectedCategory, dispatch]);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
   if (status === "failed") {
     return <div>Error loading items.</div>;
   }
@@ -85,12 +81,20 @@ const Order = () => {
             </h1>
           )}
         </section>
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-          {currentItem &&
-            currentItem.map((item) => (
-              <ItemCard item={item} key={item.name} CartManager={CartManager} />
-            ))}
-        </div>
+        {status === "loading" ? (
+          <p className="text-4xl text-[#301E08] text-center py-7">Loading...</p>
+        ) : (
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+            {currentItem &&
+              currentItem.map((item) => (
+                <ItemCard
+                  item={item}
+                  key={item.name}
+                  CartManager={CartManager}
+                />
+              ))}
+          </div>
+        )}
         <PaginationGrid
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}
