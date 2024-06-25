@@ -7,8 +7,15 @@ const Input = forwardRef(
     const id = useId();
 
     return (
-      <div className="text-center ">
-        {label && <label htmlFor={id}>{label}</label>}
+      <div>
+        {label && (
+          <label
+            htmlFor={id}
+            className="text-xl font-medium text-[#301E08] my-3"
+          >
+            {label}
+          </label>
+        )}
         <input
           type={type}
           className={`${className} text-xl my-3 border-2 border-[#C4C4C4] py-2 px-4 rounded-xl w-full`}
