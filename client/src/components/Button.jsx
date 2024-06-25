@@ -6,15 +6,12 @@ const Button = ({
   bgColor = "bg-primary",
   textColor = "text-white",
   className = "",
+  onClick,
   ...props
 }) => {
   const navigate = useNavigate();
   const handleNavigate = (e) => {
-    if (
-      e.target.innerHTML === "Order now" ||
-      e.target.innerHTML === "Order now?"
-    )
-      navigate("/order");
+    if (e.target.innerHTML === "Order now") navigate("/order");
     else if (e.target.innerHTML === "Reservation") navigate("/reservation");
   };
 
@@ -23,7 +20,7 @@ const Button = ({
       type={type}
       {...props}
       className={`${bgColor} ${textColor} ${className} hover:-translate-y-1 hover:scale-90 text-nowrap`}
-      onClick={handleNavigate}
+      onClick={onClick ? onClick : handleNavigate}
     >
       {children}
     </button>

@@ -13,16 +13,18 @@ const Cart = () => {
   };
   return (
     <Container>
-      <section className="lg:w-5/6 mx-auto">
-        <button
-          onClick={goBack}
-          className="bg-[#301E08] p-2 md:p-4 rounded-full absolute"
-        >
-          <ArrowLeft size={30} color="white" />
-        </button>
-        <h1 className="text-4xl md:text-7xl text-center  font-bold text-[#301E08] mt-5 mb-10">
-          Order List
-        </h1>
+      <section className="lg:w-5/6 mx-auto py-5">
+        <div className=" flex items-center mb-10">
+          <button
+            onClick={goBack}
+            className="bg-[#301E08] p-2 md:p-4 rounded-full "
+          >
+            <ArrowLeft size={30} color="white" />
+          </button>
+          <h1 className="text-5xl md:text-7xl text-center flex-grow  font-bold text-[#301E08] ">
+            Order List
+          </h1>
+        </div>
         {cartItems.length > 0 ? (
           <section>
             <ul>
@@ -39,7 +41,10 @@ const Cart = () => {
               ₹{totalBill}.00
             </p>
             <div className="flex justify-end gap-3 px-1 py-5">
-              <Button className="font-semibold px-10 py-5  rounded-2xl text-lg">
+              <Button
+                className="font-semibold px-10 py-5  rounded-2xl text-lg"
+                onClick={() => navigate("/order")}
+              >
                 Continue Order
               </Button>
               <Button className="font-semibold px-10 py-5 rounded-2xl text-lg">
@@ -50,7 +55,10 @@ const Cart = () => {
         ) : (
           <p className="text-3xl text-[#301E08] pb-10 text-center">
             Cart is Empty. <br className="md:hidden" /> Why not
-            <Button className="font-semibold px-10 my-5 mx-3 py-5 rounded-2xl text-2xl">
+            <Button
+              className="font-semibold px-10 my-5 mx-3 py-5 rounded-2xl text-2xl"
+              onClick={() => navigate("/order")}
+            >
               Order now?
             </Button>
           </p>
