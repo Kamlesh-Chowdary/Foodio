@@ -47,7 +47,10 @@ const Cart = () => {
               >
                 Continue Order
               </Button>
-              <Button className="font-semibold px-10 py-5 rounded-2xl text-lg">
+              <Button
+                className="font-semibold px-10 py-5 rounded-2xl text-lg"
+                onClick={() => navigate("checkout")}
+              >
                 Checkout
               </Button>
             </div>

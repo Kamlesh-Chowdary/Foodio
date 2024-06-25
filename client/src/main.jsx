@@ -12,6 +12,7 @@ import Reservation from "./pages/Reservation.jsx";
 import Contact from "./pages/Contact.jsx";
 import Order from "./pages/Order.jsx";
 import Cart from "./pages/Cart.jsx";
+import CheckOut from "./pages/CheckOut.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,12 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+        children: [
+          {
+            path: "checkout",
+            element: <CheckOut />,
+          },
+        ],
       },
     ],
   },
