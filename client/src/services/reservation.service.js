@@ -2,7 +2,7 @@ import axiosInstance from "../helper/axiosInstance";
 import config from "../utils/configHeader";
 export class ReservationService {
   createReservation = async (
-    customerId,
+    customer_id,
     { date, time, members, occation, reservationStatus }
   ) => {
     try {
@@ -11,7 +11,7 @@ export class ReservationService {
         {
           date,
           time,
-          customerId,
+          customer_id,
           members,
           occation,
           reservationStatus,

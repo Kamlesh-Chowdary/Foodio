@@ -2,14 +2,58 @@
 import { Container, Button, Input, Select } from "./index";
 import { Calendar, Clock, UserRound, X } from "lucide-react";
 import moment from "moment";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import customerService from "../services/customer.service";
+import reservationService from "../services/reservation.service";
+import { useNavigate } from "react-router-dom";
 const Reservation_Details = ({ data, showDetails }) => {
   const date = moment(data.date);
   const formattedDate = date.format("dddd, Do MMMM YYYY");
-  const { register, handleSubmit } = useForm();
-  const handleConfirm = () => {
-    console.log("Happy");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const reserveTable = (params) => {
+    console.log(params);
+    navigate("confirm", { state: params.data });
+  };
+
+  const handleConfirm = async (customerData) => {
+    setError("");
+    try {
+      const response = await customerService.createCustomer({
+        ...customerData,
+      });
+
+      if (response) {
+        setError("");
+        try {
+          const reservationDetails = await reservationService.createReservation(
+            response.data._id,
+            {
+              ...data,
+              occation: customerData.occation,
+            }
+          );
+          if (reservationDetails) {
+            if (reservationDetails.success) {
+              reserveTable(reservationDetails);
+            }
+          }
+        } catch (error) {
+          setError(error);
+        }
+      }
+    } catch (error) {
+      setError(error);
+    } finally {
+      reset();
+    }
   };
   const overRideCss = {
     paddingTop: "0.25rem",
@@ -37,6 +81,14 @@ const Reservation_Details = ({ data, showDetails }) => {
             <h1 className="text-xl font-bold text-[#301E08] pl-1">
               Data Order
             </h1>
+            {error && (
+              <p
+                className=" text-xl text-center font-semibold text-red-600"
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
             <Input
               style={overRideCss}
               placeholder="First Name"
@@ -48,11 +100,21 @@ const Reservation_Details = ({ data, showDetails }) => {
               {...register("lastName", { required: true })}
             />
             <Input
-              type="tel"
-              style={overRideCss}
+              type="number"
               placeholder="Phone number"
-              {...register("phonenumber", { required: true })}
+              {...register("phonenumber", {
+                required: true,
+                validate: (value) => {
+                  const isValidPhoneNumber = /^\d{10}$/.test(value);
+                  return isValidPhoneNumber || "Enter a valid phonenumber";
+                },
+              })}
             />
+            {errors.phonenumber && (
+              <p className=" text-sm text-red-600" role="alert">
+                {errors.phonenumber.message}
+              </p>
+            )}
             <Input
               type="email"
               style={overRideCss}
