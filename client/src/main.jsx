@@ -13,6 +13,7 @@ import Contact from "./pages/Contact.jsx";
 import Order from "./pages/Order.jsx";
 import Cart from "./pages/Cart.jsx";
 import CheckOut from "./pages/CheckOut.jsx";
+import ConfirmReservation from "./pages/ConfirmReservation.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +34,12 @@ const router = createBrowserRouter([
       {
         path: "/reservation",
         element: <Reservation />,
+        children: [
+          {
+            path: "confirm",
+            element: <ConfirmReservation />,
+          },
+        ],
       },
       {
         path: "/menu",
