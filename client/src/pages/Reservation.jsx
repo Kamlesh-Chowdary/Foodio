@@ -13,6 +13,9 @@ import { Outlet, useLocation } from "react-router-dom";
 const Reservation = () => {
   const location = useLocation();
   const isConfirmPage = location.pathname === "/reservation/confirm";
+  const isCancelPage = location.pathname.startsWith("/reservation/cancel");
+  const shouldRenderForm = !isConfirmPage && !isCancelPage;
+
   const minDate = moment().format("YYYY-MM-DD");
   const maxDate = moment().add(18, "days").format("YYYY-MM-DD");
   const [showEnterDetailsForm, setShowEnterDetailsForm] = useState(false);
@@ -35,7 +38,7 @@ const Reservation = () => {
 
   return (
     <Container>
-      {!isConfirmPage && (
+      {shouldRenderForm && (
         <section className=" h-full lg:h-screen md:grid grid-cols-2 md:py-6 gap-16 lg:w-5/6 pt-5 m-auto">
           <img
             src="/images/img_reservation.png"

@@ -1,17 +1,42 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Status, Button } from "../components";
-import { Calendar, Clock, UserRound, X, SquarePen } from "lucide-react";
+import { Calendar, Clock, UserRound, X, MoveLeft } from "lucide-react";
 import moment from "moment";
-const ConfirmReservation = () => {
+import reservationService from "../services/reservation.service";
+import { useState } from "react";
+const CancelReservation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const reservationDetails = location.state;
   const date = moment(reservationDetails.date);
   const formattedDate = date.format("dddd, Do MMMM YYYY");
+  const { reservationId } = useParams();
+  const [error, setError] = useState("");
+  const handleCancel = async () => {
+    setError("");
+    try {
+      const response = await reservationService.cancelReservation(
+        reservationId
+      );
+      if (response.success) {
+        navigate("/reservation");
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   return (
-    <section className="lg:w-5/6 mx-auto  my-16">
-      <Status status={true} reservationId={reservationDetails._id} />
+    <section className="lg:w-5/6 mx-auto  my-16 ">
+      <Status status={false} reservationId={reservationDetails._id} />
+      {error && (
+        <p
+          className=" text-xl text-center font-semibold text-red-600"
+          role="alert"
+        >
+          {error}
+        </p>
+      )}
       <section className="md:flex justify-between items-center mt-10">
         <div className="bg-[#d0ccc719] p-8 rounded-full w-full md:w-1/3 ">
           <div className="bg-[#d0ccc733]  p-8 rounded-full ">
@@ -47,23 +72,18 @@ const ConfirmReservation = () => {
         </div>
         <div className="flex md:flex-col justify-between mt-10">
           <Button
-            bgColor="bg-[#CEE2FF]"
-            textColor="text-[#123968]"
             className="flex font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl gap-3 items-center"
+            onClick={handleCancel}
           >
-            Modify <SquarePen size={30} />
+            Cancel <X size={34} />
           </Button>
           <Button
-            bgColor="bg-[#FDE6E7]"
-            textColor="text-[#EA1011]"
+            bgColor="bg-white"
+            textColor="text-[#4A1F09]"
             className="flex font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl gap-3 items-center"
-            onClick={() =>
-              navigate(`../cancel/${reservationDetails._id}`, {
-                state: reservationDetails,
-              })
-            }
+            onClick={() => navigate(-1)}
           >
-            Cancel <X size={30} />
+            Go Back <MoveLeft size={34} />
           </Button>
         </div>
       </section>
@@ -71,4 +91,4 @@ const ConfirmReservation = () => {
   );
 };
 
-export default ConfirmReservation;
+export default CancelReservation;
