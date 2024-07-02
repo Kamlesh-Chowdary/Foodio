@@ -1,8 +1,15 @@
 import axiosInstance from "../helper/axiosInstance";
-import config from "../utils/configHeader";
 export class MenuService {
+  getConfig = () => {
+    return {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+      },
+    };
+  };
   addDish = async ({ name, category, description, price, rating }) => {
     try {
+      const config = this.getConfig();
       const response = await axiosInstance.post(
         "/menu/add-dish",
         {
@@ -26,6 +33,7 @@ export class MenuService {
 
   editDish = async (dishId, { name, category, description, price, rating }) => {
     try {
+      const config = this.getConfig();
       const response = await axiosInstance.patch(
         `/menu/edit-dish/${dishId}`,
         {
@@ -50,6 +58,7 @@ export class MenuService {
 
   removeDish = async (dishId) => {
     try {
+      const config = this.getConfig();
       const response = await axiosInstance.get(
         `/menu/remove-dish/${dishId}`,
         config

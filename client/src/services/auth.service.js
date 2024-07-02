@@ -1,6 +1,12 @@
 import axiosInstance from "../helper/axiosInstance";
-import config from "../utils/configHeader";
 export class AuthService {
+  getConfig = () => {
+    return {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+      },
+    };
+  };
   createAccount = async ({ fullname, email, password }) => {
     try {
       const response = await axiosInstance.post("users/register", {
@@ -37,7 +43,8 @@ export class AuthService {
 
   logoutUser = async () => {
     try {
-      await axiosInstance.get(`users/logout`, {}, config);
+      const config = this.getConfig();
+      await axiosInstance.get(`users/logout`, config);
       window.sessionStorage.setItem("Token", "");
     } catch (error) {
       console.log("Error while loggin out:", error.response.data.message);
@@ -47,6 +54,7 @@ export class AuthService {
 
   currentUser = async () => {
     try {
+      const config = this.getConfig();
       const response = await axiosInstance.get(`/users/current-user`, config);
       return response.data.data;
     } catch (error) {

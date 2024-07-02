@@ -1,6 +1,13 @@
 import axiosInstance from "../helper/axiosInstance";
-import config from "../utils/configHeader";
+
 export class CustomerService {
+  getConfig = () => {
+    return {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+      },
+    };
+  };
   createCustomer = async ({
     firstName,
     lastName,
@@ -9,6 +16,7 @@ export class CustomerService {
     message,
   }) => {
     try {
+      const config = this.getConfig();
       const response = await axiosInstance.post(
         "/users/details",
         {
@@ -32,6 +40,7 @@ export class CustomerService {
   };
   getCustomerDetails = async () => {
     try {
+      const config = this.getConfig();
       const response = await axiosInstance.get("/users/get-details", config);
       return response.data;
     } catch (error) {
