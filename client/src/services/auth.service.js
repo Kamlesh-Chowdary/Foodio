@@ -44,8 +44,9 @@ export class AuthService {
   logoutUser = async () => {
     try {
       const config = this.getConfig();
-      await axiosInstance.get(`users/logout`, config);
+      const response = await axiosInstance.get(`users/logout`, config);
       window.sessionStorage.setItem("Token", "");
+      return response.data;
     } catch (error) {
       console.log("Error while loggin out:", error.response.data.message);
       throw error.response.data.message;
