@@ -12,6 +12,7 @@ import CartManager from "./CartManager";
 import CartCard from "./CartCard";
 import Status from "./Status";
 import LoginComponent from "./LoginComponent";
+import SignUp from "./SignUp";
 export {
   Container,
   Footer,
@@ -27,4 +28,5 @@ export {
   CartCard,
   Status,
   LoginComponent,
+  SignUp,
 };

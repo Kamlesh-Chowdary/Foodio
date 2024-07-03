@@ -19,6 +19,7 @@ import Login from "./pages/Login.jsx";
 import AuthLayout from "./components/AuthLayout.jsx";
 import Reservation_Details from "./pages/Reservation_Details.jsx";
 import ConfirmOrder from "./pages/ConfirmOrder.jsx";
+import SignUp from "./pages/Signup.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -101,6 +102,14 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout shouldBeAuthenticated={false}>
             <Login />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/signup",
+        element: (
+          <AuthLayout shouldBeAuthenticated={false}>
+            <SignUp />
           </AuthLayout>
         ),
       },
