@@ -5,13 +5,13 @@ import moment from "moment";
 const ConfirmReservation = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const reservationDetails = location.state;
-  const date = moment(reservationDetails.date);
+  const reservationDetails = location.state?.data;
+  const date = moment(reservationDetails?.date);
   const formattedDate = date.format("dddd, Do MMMM YYYY");
 
   return (
     <section className="lg:w-5/6 mx-auto  my-16">
-      <Status status={true} reservationId={reservationDetails._id} />
+      <Status status={true} reservationId={reservationDetails?._id} />
       <section className="md:flex justify-between items-center mt-10">
         <div className="bg-[#d0ccc719] p-8 rounded-full w-full md:w-1/3 ">
           <div className="bg-[#d0ccc733]  p-8 rounded-full ">
@@ -35,13 +35,13 @@ const ConfirmReservation = () => {
           <div className="flex justify-start gap-5 items-center py-1  text-[#311F09]">
             <Clock size={34} />
             <p className="text-xl py-2 font-medium text-[#5C4529]">
-              {reservationDetails.time}
+              {reservationDetails?.time}
             </p>
           </div>
           <div className="flex justify-start gap-5 items-center py-1 text-[#311F09]">
             <UserRound size={34} />
             <p className="text-xl py-2 font-medium text-[#5C4529]">
-              {reservationDetails.members}
+              {reservationDetails?.members}
             </p>
           </div>
         </div>
@@ -59,7 +59,7 @@ const ConfirmReservation = () => {
             className="flex font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl gap-3 items-center"
             onClick={() =>
               navigate(`../cancel/${reservationDetails._id}`, {
-                state: reservationDetails,
+                state: { data: reservationDetails },
               })
             }
           >

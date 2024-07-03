@@ -3,9 +3,11 @@ import { Cart as CartComponent } from "../components";
 const Cart = () => {
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/cart/checkout";
+  const isConfirmPage = location.pathname === "/cart/confirm";
+  const shouldRenderForm = !isCheckoutPage && !isConfirmPage;
   return (
     <div>
-      {!isCheckoutPage && <CartComponent />}
+      {shouldRenderForm && <CartComponent />}
       <Outlet />
     </div>
   );

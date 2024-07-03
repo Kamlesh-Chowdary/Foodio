@@ -1,24 +1,15 @@
-import { useState } from "react";
-import {
-  Container,
-  Button,
-  Input,
-  Select,
-  Reservation_Details,
-} from "../components/index";
+import { Container, Button, Input, Select } from "../components/index";
 import { useForm } from "react-hook-form";
 import moment from "moment";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Reservation = () => {
   const location = useLocation();
   const isConfirmPage = location.pathname === "/reservation/confirm";
   const isCancelPage = location.pathname.startsWith("/reservation/cancel");
   const shouldRenderForm = !isConfirmPage && !isCancelPage;
-
   const minDate = moment().format("YYYY-MM-DD");
   const maxDate = moment().add(18, "days").format("YYYY-MM-DD");
-  const [showEnterDetailsForm, setShowEnterDetailsForm] = useState(false);
   const {
     register,
     handleSubmit,
@@ -29,11 +20,10 @@ const Reservation = () => {
       time: "20:30",
     },
   });
-  const [reservationDetails, setReservationDetails] = useState({});
 
+  const navigate = useNavigate();
   const handleDetails = (data) => {
-    setShowEnterDetailsForm(!showEnterDetailsForm);
-    setReservationDetails(data);
+    navigate("details", { state: { data } });
   };
 
   return (
@@ -95,15 +85,6 @@ const Reservation = () => {
               Book now
             </Button>
           </form>
-          {showEnterDetailsForm && (
-            <>
-              <div className="fixed top-0 left-0 w-full h-full opacity-50 z-10 bg-black/80" />
-              <Reservation_Details
-                data={reservationDetails}
-                showDetails={setShowEnterDetailsForm}
-              />
-            </>
-          )}
         </section>
       )}
       <Outlet />

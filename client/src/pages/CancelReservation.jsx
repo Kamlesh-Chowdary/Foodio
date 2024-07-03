@@ -7,7 +7,7 @@ import { useState } from "react";
 const CancelReservation = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const reservationDetails = location.state;
+  const reservationDetails = location.state?.data;
   const date = moment(reservationDetails.date);
   const formattedDate = date.format("dddd, Do MMMM YYYY");
   const { reservationId } = useParams();
@@ -81,7 +81,7 @@ const CancelReservation = () => {
             bgColor="bg-white"
             textColor="text-[#4A1F09]"
             className="flex font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl gap-3 items-center"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/reservation")}
           >
             Go Back <MoveLeft size={34} />
           </Button>

@@ -4,13 +4,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Container, Logo, Button } from "../index";
 import { useState } from "react";
 import { X, Menu, ShoppingCart } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/authSlice";
+import authService from "../../services/auth.service";
 
 const Header = () => {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
   const [display, setDisplay] = useState("hidden");
+  const status = useSelector((state) => state.auth.status);
+  const dispatch = useDispatch();
   const navItems = [
     {
       name: "Home",
@@ -37,6 +41,15 @@ const Header = () => {
       path: "contact",
     },
   ];
+
+  const handleLogout = async () => {
+    try {
+      const isLogout = await authService.logoutUser();
+      if (isLogout) dispatch(logout());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const toggleNavbar = () => {
     setIsNavbarVisible(!isNavbarVisible);
@@ -102,9 +115,21 @@ const Header = () => {
               )}
               <ShoppingCart size={30} />
             </button>
-            <Button className="bg-primary text-white font-semibold rounded-3xl py-3 px-7">
-              Login
-            </Button>
+            {status ? (
+              <Button
+                className="bg-primary text-white font-semibold rounded-3xl py-3 px-7"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button
+                className="bg-primary text-white font-semibold rounded-3xl py-3 px-7"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+            )}
           </div>
         </nav>
       </Container>

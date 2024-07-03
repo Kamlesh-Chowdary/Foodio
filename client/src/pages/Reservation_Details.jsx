@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
-import { Container, Button, Input, Select } from "./index";
+import { Container, Button, Input, Select } from "../components/index";
 import { Calendar, Clock, UserRound, X } from "lucide-react";
 import moment from "moment";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import customerService from "../services/customer.service";
 import reservationService from "../services/reservation.service";
-import { useNavigate } from "react-router-dom";
-const Reservation_Details = ({ data, showDetails }) => {
-  const date = moment(data.date);
+import { useLocation, useNavigate } from "react-router-dom";
+
+const Reservation_Details = () => {
+  const location = useLocation();
+  const data = location.state?.data;
+  const date = moment(data?.date);
   const formattedDate = date.format("dddd, Do MMMM YYYY");
   const {
     register,
@@ -19,12 +22,12 @@ const Reservation_Details = ({ data, showDetails }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const reserveTable = (params) => {
-    console.log(params);
-    navigate("confirm", { state: params.data });
+    navigate("../confirm", { state: { data: params.data } });
   };
 
   const handleConfirm = async (customerData) => {
     setError("");
+
     try {
       const response = await customerService.createCustomer({
         ...customerData,
@@ -68,7 +71,7 @@ const Reservation_Details = ({ data, showDetails }) => {
       <section className=" bg-white fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2  z-40 rounded-2xl p-5  shadow-xl shadow-black/50 overflow-y-auto max-h-full md:w-auto w-5/6 scroll-smooth  scrollbar-thin ">
         <span
           className="absolute right-0 p-3 top-0 "
-          onClick={() => showDetails(false)}
+          onClick={() => navigate("/reservation")}
         >
           <X />
         </span>

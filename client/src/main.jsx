@@ -15,6 +15,10 @@ import Cart from "./pages/Cart.jsx";
 import CheckOut from "./pages/CheckOut.jsx";
 import ConfirmReservation from "./pages/ConfirmReservation.jsx";
 import CancelReservation from "./pages/CancelReservation.jsx";
+import Login from "./pages/Login.jsx";
+import AuthLayout from "./components/AuthLayout.jsx";
+import Reservation_Details from "./pages/Reservation_Details.jsx";
+import ConfirmOrder from "./pages/ConfirmOrder.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,12 +41,28 @@ const router = createBrowserRouter([
         element: <Reservation />,
         children: [
           {
+            path: "details",
+            element: (
+              <AuthLayout shouldBeAuthenticated>
+                <Reservation_Details />
+              </AuthLayout>
+            ),
+          },
+          {
             path: "confirm",
-            element: <ConfirmReservation />,
+            element: (
+              <AuthLayout shouldBeAuthenticated>
+                <ConfirmReservation />
+              </AuthLayout>
+            ),
           },
           {
             path: "cancel/:reservationId",
-            element: <CancelReservation />,
+            element: (
+              <AuthLayout shouldBeAuthenticated>
+                <CancelReservation />
+              </AuthLayout>
+            ),
           },
         ],
       },
@@ -60,9 +80,29 @@ const router = createBrowserRouter([
         children: [
           {
             path: "checkout",
-            element: <CheckOut />,
+            element: (
+              <AuthLayout shouldBeAuthenticated>
+                <CheckOut />
+              </AuthLayout>
+            ),
+          },
+          {
+            path: "confirm",
+            element: (
+              <AuthLayout shouldBeAuthenticated>
+                <ConfirmOrder />
+              </AuthLayout>
+            ),
           },
         ],
+      },
+      {
+        path: "/login",
+        element: (
+          <AuthLayout shouldBeAuthenticated={false}>
+            <Login />
+          </AuthLayout>
+        ),
       },
     ],
   },
