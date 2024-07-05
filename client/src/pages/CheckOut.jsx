@@ -24,7 +24,7 @@ const CheckOut = () => {
   };
 
   const goBack = () => {
-    navigate("/cart");
+    navigate(-1);
   };
 
   const handleDetailsSubmit = async (data) => {
