@@ -191,7 +191,7 @@ const getsingleReservation = asyncHandler(async (req, res) => {
     },
     {
       $match: {
-        _id: new mongoose.Types.ObjectId(reservation_id),
+        _id: mongoose.Types.ObjectId.createFromHexString(reservation_id),
       },
     },
     {
