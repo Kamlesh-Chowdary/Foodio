@@ -13,6 +13,7 @@ app.use(
     credentials: true,
   })
 );
+console.log(process.env.CORS_ORIGIN);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
