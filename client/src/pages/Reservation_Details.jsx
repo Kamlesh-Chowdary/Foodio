@@ -104,6 +104,7 @@ const Reservation_Details = () => {
             />
             <Input
               type="number"
+              style={overRideCss}
               placeholder="Phone number"
               {...register("phonenumber", {
                 required: true,

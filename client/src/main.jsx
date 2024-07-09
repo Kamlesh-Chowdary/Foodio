@@ -20,6 +20,7 @@ import AuthLayout from "./components/AuthLayout.jsx";
 import Reservation_Details from "./pages/Reservation_Details.jsx";
 import ConfirmOrder from "./pages/ConfirmOrder.jsx";
 import SignUp from "./pages/Signup.jsx";
+import EditReservation from "./pages/EditReservation.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
             ),
           },
         ],
+      },
+      {
+        path: "edit/reservation/:reservationId",
+        element: (
+          <AuthLayout shouldBeAuthenticated>
+            <EditReservation />
+          </AuthLayout>
+        ),
       },
       {
         path: "/menu",

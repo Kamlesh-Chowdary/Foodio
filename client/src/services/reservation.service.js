@@ -52,7 +52,10 @@ export class ReservationService {
     }
   };
 
-  editReservation = async (reservationId, { date, time, occation }) => {
+  editReservation = async (
+    reservationId,
+    { date, time, members, occation }
+  ) => {
     try {
       const config = this.getConfig();
       const response = await axiosInstance.patch(
@@ -60,6 +63,7 @@ export class ReservationService {
         {
           date,
           time,
+          members,
           occation,
         },
         config

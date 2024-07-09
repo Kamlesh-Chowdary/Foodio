@@ -9,6 +9,10 @@ const ConfirmReservation = () => {
   const date = moment(reservationDetails?.date);
   const formattedDate = date.format("dddd, Do MMMM YYYY");
 
+  const handleModify = () => {
+    navigate(`/edit/reservation/${reservationDetails._id}`);
+  };
+
   return (
     <section className="lg:w-5/6 mx-auto  my-16">
       <Status status={true} reservationId={reservationDetails?._id} />
@@ -50,6 +54,7 @@ const ConfirmReservation = () => {
             bgColor="bg-[#CEE2FF]"
             textColor="text-[#123968]"
             className="flex font-semibold px-10 mb-5 py-5 rounded-2xl  text-xl gap-3 items-center"
+            onClick={handleModify}
           >
             Modify <SquarePen size={30} />
           </Button>

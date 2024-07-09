@@ -13,6 +13,7 @@ import CartCard from "./CartCard";
 import Status from "./Status";
 import LoginComponent from "./LoginComponent";
 import SignUp from "./SignUp";
+import ReservationComponent from "./ReservationComponent";
 export {
   Container,
   Footer,
@@ -29,4 +30,5 @@ export {
   Status,
   LoginComponent,
   SignUp,
+  ReservationComponent,
 };
